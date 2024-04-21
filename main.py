@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 # Your LinkedIn credentials
 ACCOUNT_EMAIL = ""
 ACCOUNT_PASSWORD = ""
-
+custom_message = "It's great connecting with you. How have you been?"
 # Path to ChromeDriver executable
 chrome_driver_path = "C:\\chromedriver.exe"  # Assuming the ChromeDriver executable is named chromedriver.exe
 
@@ -30,7 +30,7 @@ def login_to_linkedin(username, password):
     password_field.send_keys(password)
     login_button.click()
     
-login_to_linkedin('bitm-f17-051@superior.edu.pk','MYfriend1997')
+login_to_linkedin(ACCOUNT_EMAIL,ACCOUNT_PASSWORD)
 time.sleep(30)
 # Open LinkedIn Jobs page
 driver.get("https://www.linkedin.com/mynetwork/invite-connect/connections")
@@ -60,24 +60,30 @@ time.sleep(2)
 i = 0
 for listing in all_listings:
     i += 1
+    # if i == 2:
+    #     break
     print('i: ',i)
     try:
         message_button = listing.find_element(By.CSS_SELECTOR, "button[aria-label^='Send a message to']")
         time.sleep(2) 
         message_button.click()
         time.sleep(2) 
-        # input_field = driver.find_element(By.CSS_SELECTOR, "dev.msg-form__contenteditable")
-        # input_field.clear()
-        # custom_message = "Hello, this is a custom message!"
+        paragraphs = driver.find_elements(by=By.TAG_NAME, value="p")
+        paragraphs[-5].send_keys(custom_message)
+        time.sleep(2)
+        try:
+            close_button = driver.find_element(By.CSS_SELECTOR, "button.artdeco-modal__dismiss")
+            close_button.click()
+        except:
+            pass
         # input_field.send_keys(custom_message)
-        # send =  listing.find_element(By.CSS_SELECTOR,"button.msg-form__send-button")
-        # send.click()
-        # time.sleep(2)
+        send =  driver.find_element(By.CSS_SELECTOR,"button.msg-form__send-button")
+        send.click()
+        time.sleep(2)
         close = driver.find_elements(By.CSS_SELECTOR,"header.msg-overlay-conversation-bubble-header div.msg-overlay-bubble-header__controls button.artdeco-button--circle")
         close[1].click()
     except:
         pass
-    break
 
 
 
