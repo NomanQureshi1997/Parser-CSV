@@ -8,8 +8,8 @@ from selenium.webdriver.common.by import By
 import time
 from selenium.webdriver.support import expected_conditions as EC
 # Your LinkedIn credentials
-ACCOUNT_EMAIL = "bitm-f17-051@superior.edu.pk"
-ACCOUNT_PASSWORD = "MYfriend1997"
+ACCOUNT_EMAIL = ""
+ACCOUNT_PASSWORD = ""
 
 # Path to ChromeDriver executable
 chrome_driver_path = "C:\\chromedriver.exe"  # Assuming the ChromeDriver executable is named chromedriver.exe
@@ -66,6 +66,10 @@ for listing in all_listings:
         time.sleep(2) 
         message_button.click()
         time.sleep(2) 
+        # input_field = driver.find_element(By.CSS_SELECTOR, "dev.msg-form__contenteditable")
+        # input_field.clear()
+        # custom_message = "Hello, this is a custom message!"
+        # input_field.send_keys(custom_message)
         # send =  listing.find_element(By.CSS_SELECTOR,"button.msg-form__send-button")
         # send.click()
         # time.sleep(2)
@@ -73,6 +77,7 @@ for listing in all_listings:
         close[1].click()
     except:
         pass
+    break
 
 
 
