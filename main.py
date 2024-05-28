@@ -60,28 +60,40 @@ time.sleep(2)
 i = 0
 for listing in all_listings:
     i += 1
-    # if i == 2:
-    #     break
+    if i > 2:
+        break
     print('i: ',i)
     try:
         message_button = listing.find_element(By.CSS_SELECTOR, "button[aria-label^='Send a message to']")
-        time.sleep(2) 
+        time.sleep(5) 
         message_button.click()
-        time.sleep(2) 
+        time.sleep(5) 
         paragraphs = driver.find_elements(by=By.TAG_NAME, value="p")
         paragraphs[-5].send_keys(custom_message)
+        time.sleep(5)
+        # try:
+        #     close_button = driver.find_elements(By.CSS_SELECTOR, "header.msg-overlay-conversation-bubble-header")
+        #     print('close_button =>',close_button)
+        # except:
+        #     pass
+        # Find the div with the specific class (adjust the selector as needed)
+        text_div = driver.find_element(By.CSS_SELECTOR, "div.msg-form__contenteditable")
+
+        # Sleep for 2 seconds to wait for the elements to load (if necessary)
         time.sleep(2)
-        try:
-            close_button = driver.find_element(By.CSS_SELECTOR, "button.artdeco-modal__dismiss")
-            close_button.click()
-        except:
-            pass
+
+        # Find all <p> tags within the div
+        p_tags = text_div.find_elements(By.TAG_NAME, "p")
+
+        # Clear all <p> tags within the div
+        for p in p_tags:
+            driver.execute_script("arguments[0].innerHTML = '';", p)
         # input_field.send_keys(custom_message)
-        send =  driver.find_element(By.CSS_SELECTOR,"button.msg-form__send-button")
-        send.click()
-        time.sleep(2)
-        close = driver.find_elements(By.CSS_SELECTOR,"header.msg-overlay-conversation-bubble-header div.msg-overlay-bubble-header__controls button.artdeco-button--circle")
-        close[1].click()
+        # send =  driver.find_element(By.CSS_SELECTOR,"button.msg-form__send-button")
+        # send.click()
+        # time.sleep(2)
+        # close = driver.find_elements(By.CSS_SELECTOR,"header.msg-overlay-conversation-bubble-header div.msg-overlay-bubble-header__controls button.artdeco-button--circle")
+        # close[1].click()
     except:
         pass
 
